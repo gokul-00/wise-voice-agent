@@ -1,0 +1,91 @@
+[
+    {
+        "id": "check_transfer_status",
+        "question": "How do I check my transfer's status?",
+        "keywords": [
+            "check",
+            "status",
+            "track",
+            "tracker",
+            "tracking",
+            "transfer status",
+            "where is",
+            "find transfer"
+        ],
+        "answer": "The easiest way to check the status of your transfer is by using the tracker in your Wise account. Just log in to your Wise account, go to Home to see your activity list, and click on the transfer you want to track.\n\nOnce you send the money, your transfer goes through a few stages:\n1. Your money's being processed — we're still waiting to receive the money from your bank.\n2. Money received — we've got your money and we're converting it to the new currency.\n3. Transfer Sent — we've sent the money to your recipient's bank. From here, their bank will process and deliver the money, which can take a few working days.\n\nIf your transfer has been on 'Your money's being processed' for more than 2 working days, check with your bank to make sure they've sent the money to us. We may also need to verify your information — if so, we'll send you an email. And if there's a mistake in the recipient's details, some banks may still process the payment but it will take longer, or the bank might reject it and send it back to us.\n\nTo speed things up, you can give your recipient a transfer receipt — a PDF with all payment details that their bank can use to track the money."
+    },
+    {
+        "id": "when_money_arrive",
+        "question": "When will my money arrive?",
+        "keywords": [
+            "when",
+            "arrive",
+            "arrival",
+            "delivery",
+            "how long",
+            "time",
+            "estimated",
+            "due",
+            "expected"
+        ],
+        "answer": "When you make a transfer, we give you an estimate for when your money should arrive. You can check the status by logging into your Wise account, going to Home, and clicking on the transfer.\n\nIf your transfer is due to arrive today, it usually means your money should have arrived already — we say 'today' because some banks need a few hours to process transfers from us.\n\nSmall typos in names like spelling John Smith as Jon Smith shouldn't be a problem for most countries. But if an account number is wrong, your money could take longer to arrive or get returned to us.\n\nNot all countries have banking systems that work on weekends or holidays. If your money's due to arrive on Friday, it may not show until the next working day since some banks stop processing early on Fridays.\n\nIf your recipient says the money hasn't arrived yet, ask them to check: the sender name (it will show as Wise, not your name), the recipient's bank details, and the currency of their account (their bank might have converted the money).\n\nYou can also get a receipt from your Wise account by clicking on your transfer, then the 3 dots, and selecting 'Get PDF receipt'. Send this to your recipient so their bank can track the transfer."
+    },
+    {
+        "id": "transfer_complete_not_arrived",
+        "question": "Why does it say my transfer's complete when the money hasn't arrived yet?",
+        "keywords": [
+            "complete",
+            "completed",
+            "not arrived",
+            "hasn't arrived",
+            "sent but not received",
+            "marked complete",
+            "shows complete"
+        ],
+        "answer": "We mark your transfer as Complete when we've sent the money to the recipient bank, and we leave a little room in our arrival estimate for the bank to process and release it.\n\nIf your recipient says they haven't received the money yet, there are two possible reasons:\n\n1. The receiving bank is still processing the money — some banks take up to 1 working day to release the money. So it's safely on its way, but the recipient bank is still processing it. Your recipient can ask their bank to speed this up using a transfer receipt.\n\n2. The money has arrived but looks different — your recipient might not recognise the transfer. They should check their bank statement for a transaction from Wise (not your name). The transfer might also come from one of our banking partners, identified by the reference number. Also, if the recipient's account is in a different currency, their bank will convert the money again and the amount might look different."
+    },
+    {
+        "id": "transfer_taking_longer",
+        "question": "Why is my transfer taking longer than the estimate?",
+        "keywords": [
+            "longer",
+            "delayed",
+            "delay",
+            "slow",
+            "taking long",
+            "late",
+            "overdue",
+            "longer than expected",
+            "longer than estimate"
+        ],
+        "answer": "While most transfers arrive on time, delays can happen at any stage:\n\n1. Your money is on its way to Wise — we're waiting for your bank to send it. This depends on how fast your bank processes it.\n2. We're processing your transfer — we have your money and are converting it. Security checks usually happen here.\n3. Your money is on its way to the recipient — it's up to their bank to process it. Your recipient can ask their bank to check on the payment.\n\nCommon reasons for delays:\n\n- Security checks: We sometimes run extra checks to keep your money safe. If we need more info like ID or proof of where the money came from, we'll email you.\n- Payment method: Some methods are slower than others. We show you an estimate for each method when you set up your transfer.\n- Weekends and public holidays: Banks don't process transfers on weekends or holidays. If you send money on a Friday or before a holiday, it might not move until the next working day.\n- Mistakes in recipient's details: A typo in the name or account number can cause the bank to reject the payment. Check your activity list — if the status says money is coming back to us, you can fix the details or cancel the transfer."
+    },
+    {
+        "id": "proof_of_payment",
+        "question": "What is a proof of payment?",
+        "keywords": [
+            "proof",
+            "payment",
+            "proof of payment",
+            "document",
+            "bank statement",
+            "screenshot",
+            "verify"
+        ],
+        "answer": "A proof of payment is a document showing you've sent money from your bank account. This could be a PDF of your bank statement or a screenshot from your online bank.\n\nWe might ask for it if: the money you sent hasn't reached us in the expected time frame, or we received your money but need to verify it came from an account in your name. If we need it, we'll send you an email explaining how to upload it.\n\nYour proof of payment must clearly show:\n- Your details — full name and account number\n- Your bank's name\n- Our details — Wise Ltd and our account number\n- Date — when the payment was initiated\n- Amount — the amount you sent\n- Currency — the currency you sent in\n- Reference — the reference you added to your payment\n\nIf you can't fit all details in one screenshot, you can send two, but both must show your account number. We can't accept copied and pasted text or photos of your computer screen — please upload a high-quality screenshot or PDF. For Swift payments, we need a pacs.008 document. For payments from Australia or New Zealand, you'll also need a recent bank statement."
+    },
+    {
+        "id": "banking_partner_reference",
+        "question": "What's a banking partner reference number?",
+        "keywords": [
+            "banking partner",
+            "reference number",
+            "reference",
+            "partner reference",
+            "UTR",
+            "transaction reference",
+            "tracking number"
+        ],
+        "answer": "For every transfer you send with Wise, we give you a transfer number which you can use to get in touch with us. For some transfers, we'll also give you a banking partner reference number — it's called this because we send out your money through local banking partners in each country.\n\nTo use it, give the banking partner reference number to your recipient. They can use it to see where the transfer is once it's shown as completed on your Wise account. If they need to contact their bank, they'll need to provide this number.\n\nIn different countries, banks might call it something else. For example, in India, banks sometimes call it a UTR (Unique Transaction Reference) number or a transaction reference number."
+    }
+]

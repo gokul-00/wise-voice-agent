@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wise Support — Voice Agent</title>
+    <meta name="description" content="Wise customer support voice agent for transfer inquiries">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/public/styles.css">
+</head>
+
+<body>
+    <div class="app-container">
+
+        <!-- header -->
+        <header class="app-header">
+            <div class="brand">
+                <div class="brand-logo">W</div>
+                <div class="brand-name">Wise Support</div>
+            </div>
+            <div class="status-indicator">
+                <div class="status-dot" id="header-status-dot"></div>
+                <span id="header-status-text">OFFLINE</span>
+            </div>
+        </header>
+
+        <!-- main card content -->
+        <main class="main-card">
+
+            <!-- idle view state -->
+            <div id="idle-screen" class="screen active">
+                <div class="screen-content">
+                    <div class="avatar-circle avatar-gray">
+                        <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </div>
+
+                    <h1 class="title">How can we help?</h1>
+                    <p class="subtitle">Our voice agent Gokul can help with<br>any "Where is my money" questions.</p>
+
+                    <button id="start-call-btn" class="btn btn-primary">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                            <path
+                                d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
+                        </svg>
+                        Start Voice Call
+                    </button>
+                    <p class="browser-note">Requires microphone access</p>
+                </div>
+
+                <div class="topics-section">
+                    <div class="topics-header">TOPICS GOKUL CAN HANDLE</div>
+                    <div class="topic-list">
+                        <div class="topic-item">
+                            <span>Track my transfer</span>
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        </div>
+                        <div class="topic-item">
+                            <span>When will it arrive?</span>
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        </div>
+                        <div class="topic-item">
+                            <span>Transfer delays</span>
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- active call interface -->
+            <div id="call-screen" class="screen">
+                <div class="call-header">
+                    <div class="caller-info">
+                        <h2>Gokul</h2>
+                        <span id="call-status" class="call-status">Connecting...</span>
+                    </div>
+                    <div id="call-timer" class="call-timer">00:00</div>
+                </div>
+
+                <!-- Voice Visualizer -->
+                <div id="voice-visualizer" class="voice-visualizer">
+                    <div class="viz-ring viz-ring--1"></div>
+                    <div class="viz-ring viz-ring--2"></div>
+                    <div class="viz-ring viz-ring--3"></div>
+                    <div class="viz-mic-icon">
+                        <div class="avatar-img-placeholder">
+                            <span class="avatar-initial">G</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- State Indicator -->
+                <div id="state-indicator" class="state-indicator">
+                    <span id="state-text">Connecting...</span>
+                </div>
+
+                <!-- Transcript -->
+                <div id="transcript" class="transcript"></div>
+
+                <!-- Call Controls -->
+                <div class="call-controls">
+                    <button id="mute-btn" class="control-btn" title="Mute">
+                        <svg id="mute-icon-on" viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+                            <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z" />
+                            <path
+                                d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z" />
+                        </svg>
+                        <svg id="mute-icon-off" viewBox="0 0 24 24" width="22" height="22" fill="currentColor"
+                            style="display:none">
+                            <path
+                                d="M19 11h-1.7c0 .74-.16 1.43-.43 2.05l1.23 1.23c.56-.98.9-2.09.9-3.28zm-4.02.17c0-.06.02-.11.02-.17V5c0-1.66-1.34-3-3-3S9 3.34 9 5v.18l5.98 5.99zM4.27 3L3 4.27l6.01 6.01V11c0 1.66 1.33 3 2.99 3 .22 0 .44-.03.65-.08l1.66 1.66c-.71.33-1.5.52-2.31.52-2.76 0-5.3-2.1-5.3-5.1H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c.91-.13 1.77-.45 2.54-.9L19.73 21 21 19.73 4.27 3z" />
+                        </svg>
+                    </button>
+                    <button id="end-call-btn" class="control-btn control-btn--end" title="End Call">
+                        <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor">
+                            <path
+                                d="M12 9c-1.6 0-3.15.25-4.6.72v3.1c0 .39-.23.74-.56.9-.98.49-1.87 1.12-2.66 1.85-.18.18-.43.28-.7.28-.28 0-.53-.11-.71-.29L.29 13.08c-.18-.17-.29-.42-.29-.7 0-.28.11-.53.29-.71C3.34 8.78 7.46 7 12 7s8.66 1.78 11.71 4.67c.18.18.29.43.29.71 0 .28-.11.53-.29.71l-2.48 2.48c-.18.18-.43.29-.71.29-.27 0-.52-.11-.7-.28-.79-.73-1.68-1.36-2.66-1.85-.33-.16-.56-.5-.56-.9v-3.1C15.15 9.25 13.6 9 12 9z" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Still there? Overlay -->
+                <div id="still-there-overlay" class="still-there-overlay">
+                    <div class="still-there-card">
+                        <p>Are you still there?</p>
+                        <div class="still-there-actions">
+                            <button id="still-there-yes" class="btn btn-secondary">I'm here</button>
+                            <button id="still-there-end" class="btn btn-outline-danger">End Call</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- feedback and ended state -->
+            <div id="ended-screen" class="screen">
+                <div class="screen-content">
+                    <div class="avatar-circle avatar-green">
+                        <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+                            <path
+                                d="M12 9c-1.6 0-3.15.25-4.6.72v3.1c0 .39-.23.74-.56.9-.98.49-1.87 1.12-2.66 1.85-.18.18-.43.28-.7.28-.28 0-.53-.11-.71-.29L.29 13.08c-.18-.17-.29-.42-.29-.7 0-.28.11-.53.29-.71C3.34 8.78 7.46 7 12 7s8.66 1.78 11.71 4.67c.18.18.29.43.29.71 0 .28-.11.53-.29.71l-2.48 2.48c-.18.18-.43.29-.71.29-.27 0-.52-.11-.7-.28-.79-.73-1.68-1.36-2.66-1.85-.33-.16-.56-.5-.56-.9v-3.1C15.15 9.25 13.6 9 12 9z" />
+                        </svg>
+                    </div>
+
+                    <h2 class="title" style="margin-bottom: 8px;">Call Ended</h2>
+                    <p class="subtitle" style="margin-bottom: 24px;">How was your experience with Gokul?</p>
+
+                    <div class="feedback-rating">
+                        <div class="rating-circle">1</div>
+                        <div class="rating-circle">2</div>
+                        <div class="rating-circle">3</div>
+                        <div class="rating-circle">4</div>
+                        <div class="rating-circle">5</div>
+                    </div>
+
+                    <button id="new-call-btn" class="btn btn-secondary btn-full">
+                        Submit Feedback
+                    </button>
+
+                    <p id="ended-duration" style="font-size: 13px; color: #9ca3af; margin-top: 16px;">Duration: 00:00
+                    </p>
+                    <p id="ended-reason" style="font-size: 13px; color: #9ca3af; margin-top: 4px;"></p>
+                </div>
+
+                <div class="topics-section">
+                    <div class="topics-header">TOPICS GOKUL CAN HANDLE</div>
+                    <div class="topic-list">
+                        <div class="topic-item">
+                            <span>Track my transfer</span>
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        </div>
+                        <div class="topic-item">
+                            <span>When will it arrive?</span>
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <footer class="app-footer">
+            <p>Gokul is an AI agent. For other inquiries like account opening<br>or fees, Gokul will connect you to a
+                human.</p>
+        </footer>
+    </div>
+
+    <script src="/public/app.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,21 @@
+# Environments
+.venv/
+venv/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Environment Variables
+.env
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
