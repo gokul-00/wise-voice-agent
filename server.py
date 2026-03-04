@@ -1,7 +1,7 @@
 import os
 import json
 import httpx
-from fastapi import FastAPI
+from fastapi import FastAPI, BackgroundTasks
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse, StreamingResponse, Response
 from pydantic import BaseModel
@@ -10,6 +10,12 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = FastAPI()
+
+try:
+    import edge_tts
+    HAS_EDGE_TTS = True
+except ImportError:
+    HAS_EDGE_TTS = False
 
 # Load FAQ knowledge base
 script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -190,8 +196,11 @@ ELEVENLABS_MODEL = "eleven_flash_v2_5"
 @app.get("/api/tts")
 async def text_to_speech(text: str):
     api_key = os.getenv("ELEVENLABS_API_KEY")
+    # Fallback to Edge TTS if no API key is provided
     if not api_key:
-        return Response(status_code=503, content="ElevenLabs API key not configured")
+        if HAS_EDGE_TTS:
+            return await edge_tts_fallback(text)
+        return Response(status_code=503, content="ElevenLabs API key not configured and edge-tts not installed")
 
     url = f"https://api.elevenlabs.io/v1/text-to-speech/{ELEVENLABS_VOICE_ID}/stream"
 
@@ -217,12 +226,54 @@ async def text_to_speech(text: str):
                 if resp.status_code != 200:
                     error_text = await resp.aread()
                     print(f"ELEVENLABS ERROR [{resp.status_code}]: {error_text.decode('utf-8')}")
-                    yield b""
+                    
+                    # If authentication fails (e.g. Free Tier VPN block on Railway), fallback to Edge TTS
+                    if HAS_EDGE_TTS:
+                        print("Falling back to edge-tts...")
+                        # We cannot effortlessly yield from another async generator while inside this httpx context block, 
+                        # but returning a standard StreamingResponse directly from the endpoint works.
+                        pass
+                    else:
+                        yield b""
                     return
                 async for chunk in resp.aiter_bytes():
                     yield chunk
 
+    # If the generator above reached the `return` due to a 401 error,
+    # the client will just receive an empty stream unless we completely swap the streaming response.
+    # To properly handle the fallback, we need to try/catch the httpx request before starting the generator.
+    
+    # Check ElevenLabs health first (Optionally, we just stream it and let it fail into Edge TTS)
+    try:
+        async with httpx.AsyncClient() as client:
+            resp = await client.post(
+                url,
+                headers={"xi-api-key": api_key, "Content-Type": "application/json"},
+                json={"text": "test", "model_id": ELEVENLABS_MODEL},
+            )
+            if resp.status_code in [401, 403, 429]:
+                 if HAS_EDGE_TTS:
+                     print("ElevenLabs rejected request. Falling back to edge-tts.")
+                     return await edge_tts_fallback(text)
+                 else:
+                     return Response(status_code=503, content="ElevenLabs denied request and no fallback available.")
+    except Exception:
+        pass # Ignore health check failure, let the stream fail natively
+
     return StreamingResponse(stream_audio(), media_type="audio/mpeg", headers={"Cache-Control": "no-cache"})
+
+async def edge_tts_fallback(text: str):
+    """Fallback method using Microsoft Edge TTS (Free, Open Source)"""
+    # Using a calm male voice to match Gokul
+    VOICE = "en-US-ChristopherNeural" 
+    communicate = edge_tts.Communicate(text, VOICE)
+    
+    async def audio_stream():
+        async for chunk in communicate.stream():
+            if chunk["type"] == "audio":
+                yield chunk["data"]
+                
+    return StreamingResponse(audio_stream(), media_type="audio/mpeg", headers={"Cache-Control": "no-cache"})
 
 
 # Serve static files from public directory
