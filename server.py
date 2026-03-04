@@ -215,6 +215,8 @@ async def text_to_speech(text: str):
                 }
             ) as resp:
                 if resp.status_code != 200:
+                    error_text = await resp.aread()
+                    print(f"ELEVENLABS ERROR [{resp.status_code}]: {error_text.decode('utf-8')}")
                     yield b""
                     return
                 async for chunk in resp.aiter_bytes():
